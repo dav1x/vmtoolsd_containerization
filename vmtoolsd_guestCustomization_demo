@@ -1,4 +1,5 @@
-In a VMware environment we would like to be able to deploy and manage hosts running docker and openshift as virtual machines utilizing vmtoolsd.
+
+In a VMware environment we would like to be able to deploy and manage hosts running docker and openshift as virtual machines utilizing vmtoolsd as a container. This is to enable Vmware to provide an "Official Support Statement."
 
 The 5 key areas that vmtoolsd provides for is:
 

@@ -1,0 +1,45 @@
+**************************************
+
+Demo 1: Deploy 2 machines from the VM environment in the lab from the following Templates:
+
+ose3-atomic-master -> ose3-vmtools-atomic -> 10.19.0.72
+ose3-rhel-master -> ose3-vmtools-rhel  -> 10.19.0.73
+
+Logon to both machines and check for open-vm-tools installed via rpm
+
+# rpm -qa | grep open-vm-tools
+
+Show the systemd unit file for vmtoolsd 
+
+# cat /etc/systemd/system/vmtoolsd.service
+
+Show the status of the service starting up
+
+# systemctl status vmtoolsd.service
+
+Show the corresponding IP addresses assigned via the guest customization and the hostnames that match the VM names
+
+# hostname && ip a | grep 10.19.0
+
+This will showcase that guest customizations were successful and worked fine.
+
+**************************************
+
+Demo 2: Query vmtoolsd and perform some rudimentary tasks involving the newly created VMs
+
+Execute TestVM.ps1 on your Windows VM 
+
+Let the script execute in tandem with having vCenter opened showing the tasks in vCenter as well.
+
+Copy some files to the newly created VMs using vmtoolsd and authenticating against the host operating system
+
+Copy-VMGuestfile -VM ose-vmtools-rhel -Source ".\test.txt" -GuestUser root -GuestPassword "100Mgmt-" -LocaltoGuest -Destination "/tmp/" -Force
+Copy-VMGuestfile -VM ose-vmtools-atomic -Source ".\test.txt" -GuestUser root -GuestPassword "100Mgmt-" -LocaltoGuest -Destination "/tmp/" -Force
+
+Invoke-VMScript -VM ose3-vmtools-rhel -GuestUser root -guestPassword "100Mgmt-" -ScriptText "ls -al /tmp/" -ScriptType Bash
+Invoke-VMScript -VM ose3-vmtools-atomic -GuestUser root -guestPassword "100Mgmt-" -ScriptText "ls -al /tmp/" -ScriptType Bash
+
+Here we can see the ps output of the container via vmtoolsd
+Invoke-VMScript -VM ose3-vmtools-rhel -GuestUser root -guestPassword "100Mgmt-" -ScriptText "ps aux" -ScriptType Bash
+
+

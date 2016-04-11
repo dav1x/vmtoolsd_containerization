@@ -1,3 +1,13 @@
+In a VMware environment we would like to be able to deploy and manage hosts running docker and openshift as virtual machines utilizing vmtoolsd.
+
+The 5 key areas that vmtoolsd provides for is:
+
+-Guest Operations (utilizes PAM and host auth)
+-Snapshot images
+-Power Operations
+-Time Synchronization
+-Guest Information (VM IP address, disk info, etc)
+
 **************************************
 
 Demo 1: Deploy 2 machines from the VM environment in the lab from the following Templates:
